@@ -15,6 +15,7 @@ class DioConfig {
         sendTimeout: const Duration(seconds: 20),
         receiveTimeout: const Duration(seconds: 20),
         headers: {
+          'Authorization': 'Bearer ${ApiConstants.authToken}',
           'Content-Type': 'application/json',
         },
         responseType: ResponseType.json,

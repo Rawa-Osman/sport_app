@@ -1,5 +1,5 @@
 class ApiConstants {
-  static const String apiVersion = 'v2';
+  static const String apiVersion = 'v1';
   static const String baseUrl = 'https://staging.torliga.com/api/$apiVersion';   // i don't rewrite baseUrl, i just use it one time in dio config file
 
   // matches

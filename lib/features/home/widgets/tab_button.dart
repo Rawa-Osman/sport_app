@@ -37,12 +37,7 @@ class TabButton extends StatelessWidget {
               end: Alignment.centerRight,
               colors: [Color(0xFF86F14D), Color(0xFFE6FF48)],
             ) : null,
-            border: const Border(
-              bottom: BorderSide(
-                color: Colors.black,
-                width: 2,
-              ),
-            ),
+           
           ),
           margin: const EdgeInsets.symmetric(horizontal: 3),
           child: Center(

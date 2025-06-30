@@ -68,26 +68,24 @@ class MatchesTabBuilder extends StatelessWidget {
       );
     }
     if (matches.data.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(AppDimentions.padding),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: const Image(
-                  image: AssetImage(AppImages.empty),
-                ),
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(AppDimentions.padding),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: const Image(
+                image: AssetImage(AppImages.empty),
               ),
             ),
-            const Text(
-              'No matches are scheduled.',
-              style: TextStyle(fontSize: 16, color: Colors.grey),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
+          ),
+          const Text(
+            'No matches are scheduled.',
+            style: TextStyle(fontSize: 16, color: Colors.grey),
+            textAlign: TextAlign.center,
+          ),
+        ],
       );
     }
 

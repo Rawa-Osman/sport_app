@@ -16,7 +16,6 @@ class MatchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
     return Container(
       decoration: BoxDecoration(
         color: AppColors.black,
@@ -53,24 +52,37 @@ class MatchWidget extends StatelessWidget {
                     width: 32,
                     height: 32,
                     errorBuilder: (context, error, stackTrace) =>
-                      const  Icon(Icons.sports_soccer),
+                        const Icon(Icons.sports_soccer),
                   ),
               ],
             ),
           ),
+          // i added match status but there is no description for it, except for the match status id = 1 i consider it as started and show the scores
+          // also about scores there is no description for it, so i just show the sum of the scores array
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 12),
-                child: Text(
-                  match.matchTime,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleMedium!
-                      .copyWith(color: AppColors.grey),
-                ),
-              ),
+              match.matchStatusId == 1
+                  ? Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Text(
+                        match.matchTime,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(color: AppColors.grey),
+                      ),
+                    )
+                  : Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Text(
+                        "${match.homeTeam.score.reduce((a, b) => a + b)} : ${match.awayTeam.score.reduce((a, b) => a + b)}",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(color: AppColors.grey),
+                      ),
+                    ),
             ],
           ),
           Expanded(

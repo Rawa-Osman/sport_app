@@ -87,10 +87,11 @@ flutter:
     - family: ChakraPetch
       fonts:
         - asset: assets/fonts/ChakraPetch-Regular.ttf
+    - family: ChakraPetch-Bold
+      fonts:
         - asset: assets/fonts/ChakraPetch-Bold.ttf
           weight: 700
-        - asset: assets/fonts/ChakraPetch-Italic.ttf
-          style: italic
+
 
   #   - family: Trajan Pro
   #     fonts:

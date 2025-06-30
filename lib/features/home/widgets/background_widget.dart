@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:sport_app/core/constants/app_colors.dart';
 
 class BackgroundWidget extends StatelessWidget {

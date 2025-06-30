@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sport_app/core/constants/app_colors.dart';
 
 class TabButton extends StatelessWidget {
   final String title;
@@ -30,11 +31,12 @@ class TabButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            gradient: const LinearGradient(
+            color: selectedIndex == index ? null: AppColors.whiteTransparent,
+            gradient: selectedIndex == index ? const LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
               colors: [Color(0xFF86F14D), Color(0xFFE6FF48)],
-            ),
+            ) : null,
             border: const Border(
               bottom: BorderSide(
                 color: Colors.black,
@@ -46,7 +48,10 @@ class TabButton extends StatelessWidget {
           child: Center(
             child: Text(
               title,
-              style: Theme.of(context).textTheme.titleMedium,
+              style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                color: selectedIndex == index ? AppColors.black : AppColors.grey,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),

@@ -1,12 +1,15 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sport_app/core/constants/app_colors.dart';
 import 'package:sport_app/core/constants/app_dimentions.dart';
 import 'package:sport_app/core/di/di_config.dart';
 import 'package:sport_app/features/home/bloc/home_bloc.dart';
 import 'package:sport_app/features/home/bloc/home_event.dart';
+import 'package:sport_app/features/home/bloc/home_state.dart';
 import 'package:sport_app/features/home/widgets/background_widget.dart';
+import 'package:sport_app/features/home/widgets/match_tab_builder.dart';
 import 'package:sport_app/features/home/widgets/tab_button.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,6 +35,21 @@ class _HomePageState extends State<HomePage> {
     });
     homeBloc.add(SwitchTab(index));
   }
+    void _refreshTab(MatchTab tab) {
+    switch (tab) {
+      case MatchTab.today:
+        homeBloc.add(LoadTodayMatches());
+        break;
+      case MatchTab.upcoming:
+        homeBloc.add(LoadTomorrowMatches());
+        break;
+      case MatchTab.past:
+        homeBloc.add(LoadYesterdayMatches());
+        break;
+    }
+  }
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +89,19 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-            )
+            ),
+
+            Positioned.fill(
+              top: 80, // Adjust below tab bar
+              child: BlocBuilder<HomeBloc, HomeState>(
+                bloc: homeBloc,
+                builder: (context, state) {
+                  MatchTab tab = MatchTab.values[selectedIndex];
+                  return MatchesTabBuilder(state: state, tab: tab, onRefresh: _refreshTab);
+                  // return SizedBox();
+                },
+              ),
+            ),
             
             ],
         ),

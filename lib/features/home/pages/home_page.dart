@@ -1,7 +1,13 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
-import 'package:sport_app/features/home/data/model/home_model.dart';
-import 'package:sport_app/features/home/data/home_provider/home_provider.dart';
-import 'package:sport_app/features/home/data/repo/home_repo.dart';
+import 'package:sport_app/core/constants/app_colors.dart';
+import 'package:sport_app/core/constants/app_dimentions.dart';
+import 'package:sport_app/core/di/di_config.dart';
+import 'package:sport_app/features/home/bloc/home_bloc.dart';
+import 'package:sport_app/features/home/bloc/home_event.dart';
+import 'package:sport_app/features/home/widgets/background_widget.dart';
+import 'package:sport_app/features/home/widgets/tab_button.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,67 +17,64 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late HomeRepo _repo;
-  MatchData? _matchData;
-  String? _error;
-  bool _isLoading = true;
+   final HomeBloc homeBloc = getIt<HomeBloc>();
+  int selectedIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    _repo = HomeRepo(provider: HomeProvider());
-    _loadData();
+    homeBloc.loadInitialData();
   }
 
-  Future<void> _loadData() async {
-    final result = await _repo.getHome();
-    result.fold(
-      (failure) {
-        setState(() {
-          _error = failure.toString();
-          _isLoading = false;
-        });
-      },
-      (data) {
-        setState(() {
-          _matchData = data;
-          _isLoading = false;
-        });
-      },
-    );
+  void onTabSelected(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+    homeBloc.add(SwitchTab(index));
   }
-
   @override
   Widget build(BuildContext context) {
-    if (_isLoading) {
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      );
-    }
-
-    if (_error != null) {
-      return Scaffold(
-        body: Center(child: Text('Error: $_error')),
-      );
-    }
-
     return Scaffold(
-      appBar: AppBar(title: const Text('Tomorrow\'s Matches')),
-      body: ListView.builder(
-        itemCount: _matchData!.data.length,
-        itemBuilder: (context, index) {
-          final competition = _matchData!.data[index];
-          return ExpansionTile(
-            title: Text(competition.competition.name),
-            children: competition.matches.map((match) {
-              return ListTile(
-                title: Text(
-                    '${match.homeTeam.name} vs ${match.awayTeam.name}'),
-                subtitle: Text('${match.matchDay} at ${match.matchTime}'),
-              );
-            }).toList(),
-          );
-        },
+      backgroundColor: AppColors.scaffoldBackground,
+      body: SafeArea(
+        child: Stack(
+            children: [
+              // This container is used to fill the screen height
+              Container(
+                height: MediaQuery.of(context).size.height
+                ,
+              ),
+            Positioned(
+              top:0,
+              bottom: 0,
+              right: -100,
+              child: BackgroundWidget()
+            ),
+            Positioned(
+              top: 20,
+              right: 0,
+              left: 0,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppDimentions.padding),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                  TabButton(title: 'Today', selectedIndex: selectedIndex, index: 0, onPressed: (index) {
+                    onTabSelected(index);
+                  }),
+                  TabButton(title: 'Upcoming', selectedIndex: selectedIndex, index: 1, onPressed: (index) {
+                    onTabSelected(index);
+                  }),
+                  TabButton(title: 'Past', selectedIndex: selectedIndex, index: 2, onPressed: (index) {
+                    onTabSelected(index);
+                  }),
+                  ],
+                ),
+              ),
+            )
+            
+            ],
+        ),
       ),
     );
   }

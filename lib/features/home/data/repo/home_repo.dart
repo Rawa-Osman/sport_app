@@ -9,11 +9,23 @@ class HomeRepo extends RepositoryHelper {
     final HomeProvider provider;
 
   HomeRepo({required this.provider});
-  Future<Either<AppException,MatchData >> getHome() async {
+
+  Future<Either<AppException,MatchData >> getTomorrowMatches() async {
     return request(body: () async {
       final response = await provider.getTomorrowMatches();
       return Right(response);
     });
-   
+  }
+  Future<Either<AppException,MatchData >> getTodayMatches() async {
+    return request(body: () async {
+      final response = await provider.getTodayMatches();
+      return Right(response);
+    });
+  }
+  Future<Either<AppException,MatchData >> getYesterdayMatches() async {
+    return request(body: () async {
+      final response = await provider.getYesterdayMatches();
+      return Right(response);
+    });
   }
 }

@@ -11,4 +11,14 @@ class HomeProvider {
     final response = await dio.get(ApiConstants.tomorrowMatches);
     return MatchData.fromJson(response.data);
   }
+
+  Future<MatchData> getTodayMatches () async {
+    final response = await dio.get(ApiConstants.todayMatches);
+    return MatchData.fromJson(response.data);
+  }
+
+  Future<MatchData> getYesterdayMatches () async {
+    final response = await dio.get(ApiConstants.yesterdayMatches);
+    return MatchData.fromJson(response.data);
+  }
 }

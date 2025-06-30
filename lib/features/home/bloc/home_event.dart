@@ -1,8 +1,12 @@
-part of 'home_bloc.dart';
+abstract class HomeEvent {}
 
-sealed class HomeEvent extends Equatable {
-  const HomeEvent();
+class LoadTodayMatches extends HomeEvent {}
 
-  @override
-  List<Object> get props => [];
+class LoadTomorrowMatches extends HomeEvent {}
+
+class LoadYesterdayMatches extends HomeEvent {}
+
+class SwitchTab extends HomeEvent {
+  final int tabIndex;
+  SwitchTab(this.tabIndex);
 }

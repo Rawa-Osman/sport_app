@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sport_app/core/routes/routes.dart';
 import 'package:sport_app/features/home/pages/home_page.dart';
+// import 'package:sport_app/features/home/pages/home_page1.dart';
 
 @lazySingleton
 class GoRouterConfig {
@@ -23,7 +24,7 @@ class GoRouterConfig {
         ),
         GoRoute(
           path: AppRoutes.home,
-          builder: (context, state) => const HomePage(),
+          builder: (context, state) =>  HomePage(),
         ),
       ],
     );

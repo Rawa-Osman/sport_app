@@ -26,29 +26,56 @@ The project is split into **core logic**, **features**, and **entry point**:
 
 ```
 
-lib/
-├── core/              # Shared resources across all features
-│   ├── common/        # Reusable widgets (e.g., loaders)
-│   ├── constants/     # Static values: colors, fonts, images, dimensions
-│   ├── di/            # Dependency Injection setup
-│   ├── error/         # Exception handling logic
-│   ├── network/       # API config & connectivity checker
-│   ├── repository/    # Shared repo helpers
-│   ├── routes/        # go\_router setup & route definitions
-│   ├── services/      # WebSocket or other external services
-│   └── theme/         # App-wide theming (dark/light mode, text styles)
-│
-├── features/          # Feature-specific logic
-│   └── home/          # "Home" feature module
-│       ├── bloc/          # BLoC files (event, state, bloc)
-│       ├── data/          # Data layer
-│       │   ├── model/         # Models (e.g. HomeModel)
-│       │   ├── repo/          # Repository logic for fetching/managing data
-│       │   └── home\_provider/ # Service/provider for API calls
-│       ├── pages/         # UI page screens (e.g. HomePage)
-│       └── widgets/       # Feature-specific widgets
-│
-└── main.dart          # App entry point
+
+lib
+├── core
+│   ├── common
+│   │   └── widget
+│   │       └── circularl_loader_widget.dart
+│   ├── constants
+│   │   ├── api_constants.dart
+│   │   ├── app_colors.dart
+│   │   ├── app_dimentions.dart
+│   │   ├── app_fonts.dart
+│   │   └── app_images.dart
+│   ├── di
+│   │   └── di_config.dart
+│   ├── error
+│   │   └── exceptions.dart
+│   ├── network
+│   │   ├── dio_config.dart
+│   │   └── internet_checker.dart
+│   ├── repository
+│   │   └── repository_helper.dart
+│   ├── routes
+│   │   ├── go_router_config.dart
+│   │   └── routes.dart
+│   ├── services
+│   │   └── web_socket_service.dart
+│   └── theme
+│       └── app_theme.dart
+├── features
+│   └── home
+│       ├── bloc
+│       │   ├── home_bloc.dart
+│       │   ├── home_event.dart
+│       │   └── home_state.dart
+│       ├── data
+│       │   ├── home_provider
+│       │   │   └── home_provider.dart
+│       │   ├── model
+│       │   │   └── home_model.dart
+│       │   └── repo
+│       │       └── home_repo.dart
+│       ├── pages
+│       │   └── home_page.dart
+│       └── widgets
+│           ├── background_widget.dart
+│           ├── competition_widget.dart
+│           ├── match_tab_builder.dart
+│           ├── match_widget.dart
+│           └── tab_button.dart
+└── main.dart
 
 ````
 

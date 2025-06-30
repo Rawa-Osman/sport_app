@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sport_app/core/constants/app_colors.dart';
+import 'package:sport_app/core/constants/app_dimentions.dart';
+import 'package:sport_app/core/constants/app_images.dart';
 import 'package:sport_app/core/error/exceptions.dart';
 import 'package:sport_app/features/home/bloc/home_state.dart';
 import 'package:sport_app/features/home/data/model/home_model.dart';
@@ -23,7 +26,8 @@ class MatchesTabBuilder extends StatelessWidget {
     final error = _getErrorState(state, tab);
 
     if (isLoading) {
-      return const Center(child: CircularProgressIndicator());
+      // return const Center(child: CircularLoader());  
+      return const Center(child: CircularProgressIndicator()); // i prefer this one because of the backroud color
     }
 
     if (error != null) {
@@ -42,12 +46,18 @@ class MatchesTabBuilder extends StatelessWidget {
       );
     }
 
-    if (matches == null || matches.data.isEmpty) {
+    if (matches == null) {
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('No matches found'),
+            Text(
+              'No matches found',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium!
+                  .copyWith(color: AppColors.grey),
+            ),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () => onRefresh(tab),
@@ -57,8 +67,32 @@ class MatchesTabBuilder extends StatelessWidget {
         ),
       );
     }
+    if (matches.data.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(AppDimentions.padding),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: const Image(
+                  image: AssetImage(AppImages.empty),
+                ),
+              ),
+            ),
+            const Text(
+              'No matches are scheduled.',
+              style: TextStyle(fontSize: 16, color: Colors.grey),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      );
+    }
 
     return RefreshIndicator(
+      backgroundColor: AppColors.green,
       onRefresh: () async => onRefresh(tab),
       child: ListView.builder(
         itemCount: matches.data.length,

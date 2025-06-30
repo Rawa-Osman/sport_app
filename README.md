@@ -24,7 +24,7 @@ A modular, scalable Flutter application for sports tracking. Designed with clean
 
 The project is split into **core logic**, **features**, and **entry point**:
 
-```
+
 
 
 lib

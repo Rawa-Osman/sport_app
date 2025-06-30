@@ -1,13 +1,21 @@
-
-
 class MatchData {
   final List<CompetitionData> data;
-
   MatchData({required this.data});
+
+
+  MatchData copyWith({
+    List<CompetitionData>? data,
+  }) {
+    return MatchData(
+      data: data ?? this.data,
+    );
+  }
 
   factory MatchData.fromJson(Map<String, dynamic> json) {
     return MatchData(
-      data: (json['data'] as List).map((e) => CompetitionData.fromJson(e)).toList(),
+      data: (json['data'] as List)
+          .map((e) => CompetitionData.fromJson(e))
+          .toList(),
     );
   }
 }
@@ -18,6 +26,15 @@ class CompetitionData {
 
   CompetitionData({required this.competition, required this.matches});
 
+ CompetitionData copyWith({
+    Competition? competition,
+    List<Match>? matches,
+  }) {
+    return CompetitionData(
+      competition: competition ?? this.competition,
+      matches: matches ?? this.matches,
+    );
+  }
   factory CompetitionData.fromJson(Map<String, dynamic> json) {
     return CompetitionData(
       competition: Competition.fromJson(json['competition']),
@@ -78,6 +95,21 @@ class Match {
       matchTime: json['match_time'],
     );
   }
+  Match copyWith({
+    Team? homeTeam,
+    Team? awayTeam,
+  }) {
+    return Match(
+      id: id,
+      apiId: apiId,
+      homeTeam: homeTeam ?? this.homeTeam,
+      awayTeam: awayTeam ?? this.awayTeam,
+      matchStatusId: matchStatusId,
+      matchStatusDescription: matchStatusDescription,
+      matchDay: matchDay,
+      matchTime: matchTime,
+    );
+  }
 }
 
 class Team {
@@ -114,6 +146,22 @@ class Team {
       shirt: json['shirt'],
       isDefaultShirt: json['is_default_shirt'],
       national: json['national'],
+    );
+  }
+
+  Team copyWith({
+    List<int>? score,
+  }) {
+    return Team(
+      id: id,
+      apiId: apiId,
+      name: name,
+      shortName: shortName,
+      logo: logo,
+      score: score ?? this.score,
+      shirt: shirt,
+      isDefaultShirt: isDefaultShirt,
+      national: national,
     );
   }
 }
